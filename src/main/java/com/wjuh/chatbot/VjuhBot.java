@@ -131,7 +131,7 @@ public class VjuhBot extends TelegramLongPollingBot {
                             EduState eduState = EduState.states.get(update.getMessage().getFrom().getId());
 
                             if (Arrays.stream(eduState.getAnswers()).noneMatch(s -> s.equals(text))) {
-                                senderService.send(this, new EduMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null,
+                                senderService.send(this, new EduQuestion(update.getMessage().getFrom(), update.getMessage().getChat(), null,
                                         eduState.getQuestion(), eduState.getAnswers()));
                                 return;
                             } else {
@@ -170,7 +170,10 @@ public class VjuhBot extends TelegramLongPollingBot {
                                         return;
                                 }
                                 EduState.states.put(update.getMessage().getFrom().getId(), next);
-                                senderService.send(this, new EduMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null,
+                                senderService.send(this, new EduNext(update.getMessage().getFrom(), update.getMessage().getChat(), null));
+                                senderService.send(this, new EduTheory(update.getMessage().getFrom(), update.getMessage().getChat(), null,
+                                        next.getTheory()));
+                                senderService.send(this, new EduQuestion(update.getMessage().getFrom(), update.getMessage().getChat(), null,
                                         next.getQuestion(), next.getAnswers()));
                             }
                             break;

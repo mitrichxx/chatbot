@@ -10,11 +10,11 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import java.util.ArrayList;
 import java.util.List;
 
-public class EduMessage extends Message {
+public class EduQuestion extends Message {
     private final String question;
     private final String[] answers;
 
-    public EduMessage(User user, Chat chat, String[] arguments, String question, String[] answers) {
+    public EduQuestion(User user, Chat chat, String[] arguments, String question, String[] answers) {
         super(user, chat, arguments);
         this.question = question;
         this.answers = answers;

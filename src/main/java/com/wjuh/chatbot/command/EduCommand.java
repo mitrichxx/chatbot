@@ -1,10 +1,9 @@
 package com.wjuh.chatbot.command;
 
 import com.wjuh.chatbot.VjuhBot;
-import com.wjuh.chatbot.message.edu.EduMessage;
+import com.wjuh.chatbot.message.edu.EduQuestion;
+import com.wjuh.chatbot.message.edu.EduTheory;
 import com.wjuh.chatbot.message.edu.EduWelcomeMessage;
-import com.wjuh.chatbot.message.test.CardNumberLogMessage;
-import com.wjuh.chatbot.message.test.TestSmsReceivedMessage;
 import com.wjuh.chatbot.model.StateModel;
 import com.wjuh.chatbot.service.SenderService;
 import com.wjuh.chatbot.state.BaseState;
@@ -33,7 +32,9 @@ public class EduCommand extends BotCommand {
         VjuhBot.USER_MAP.compute(user.getId(), (k, v) -> new StateModel(BaseState.EDUCATION, chat, user));
         final EduState initState = EduState.states.compute(user.getId(), (k, v) -> EduState.Q1);
         senderService.send(absSender, new EduWelcomeMessage(user, chat, arguments));
-        senderService.send(absSender, new EduMessage(user, chat, null,
+        senderService.send(absSender, new EduTheory(user, chat, null,
+                initState.getTheory()));
+        senderService.send(absSender, new EduQuestion(user, chat, null,
                 initState.getQuestion(), initState.getAnswers()));
 
     }
