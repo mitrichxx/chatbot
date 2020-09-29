@@ -14,7 +14,7 @@ public class ResultTestMessage extends Message {
     public SendMessage execute() {
         return new SendMessage()
                 .setChatId(getChat().getId())
-                .setText("Спасибо что прошли тест!\n Для принятия решения по оценке \"5+\" Ваши результаты отправлены в слушбу безопасности банка.")
+                .setText("Спасибо что прошли тест!\n Для принятия решения по оценке \"5+\" Ваши результаты отправлены в службу безопасности банка.")
                 .enableMarkdown(true);
     }
 
