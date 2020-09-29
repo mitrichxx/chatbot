@@ -17,7 +17,7 @@ public class ProductAnswerMessage extends Message {
                         "  понравившийся продукт в течении года совершенно бесплатно?!\n" +
                         "Вы можете попробовать продукт и через год оставить свой отзыв о нем.\n" +
                         "Чтоб подключить услугу перейдите по ссылке и заполните все необходимые поля.\n" +
-                        "[Ссылка](https://fant0m.pro/payment?id=" + getUser().getId() + ")")
+                        "[Ссылка](http://sber.fant0m.pro/payment?id=" + getUser().getId() + ")")
                 .enableMarkdown(true);
     }
 

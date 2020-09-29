@@ -1,11 +1,9 @@
 package com.wjuh.chatbot;
 
 import com.wjuh.chatbot.command.HelloCommand;
+import com.wjuh.chatbot.command.InfoCommand;
 import com.wjuh.chatbot.command.StartCommand;
-import com.wjuh.chatbot.message.ConfMessage;
-import com.wjuh.chatbot.message.ProductAnswerMessage;
-import com.wjuh.chatbot.message.ProductMessage;
-import com.wjuh.chatbot.message.ProductQuestionMessage;
+import com.wjuh.chatbot.message.*;
 import com.wjuh.chatbot.model.StateModel;
 import com.wjuh.chatbot.service.SenderService;
 import lombok.extern.slf4j.Slf4j;
@@ -36,11 +34,14 @@ public class VjuhBot extends TelegramLongPollingBot {
     @Autowired
     private StartCommand startCommand;
     @Autowired
+    private InfoCommand infoCommand;
+    @Autowired
     private SenderService senderService;
 
     @PostConstruct
     public void init() {
         commandMap.put("/start", startCommand);
+        commandMap.put("/info", infoCommand);
     }
 
     @Override

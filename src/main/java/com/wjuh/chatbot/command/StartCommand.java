@@ -18,8 +18,6 @@ import org.telegram.telegrambots.meta.bots.AbsSender;
 @Slf4j
 @Component
 public class StartCommand extends BotCommand {
-    private static final String LOGTAG = "STARTCOMMAND";
-
     @Autowired
     private SenderService senderService;
 
