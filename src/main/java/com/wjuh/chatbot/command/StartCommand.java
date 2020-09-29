@@ -1,6 +1,7 @@
 package com.wjuh.chatbot.command;
 
 import com.wjuh.chatbot.VjuhBot;
+import com.wjuh.chatbot.message.ConfMessage;
 import com.wjuh.chatbot.message.StartMessage;
 import com.wjuh.chatbot.message.WelcomeMessage;
 import com.wjuh.chatbot.service.SenderService;
@@ -31,5 +32,6 @@ public class StartCommand extends BotCommand {
         VjuhBot.USER_MAP.compute(user.getId(), (k, v) -> BaseState.FRAUD);
         senderService.send(absSender, new StartMessage(user, chat, arguments));
         senderService.send(absSender, new WelcomeMessage(user, chat, arguments));
+        senderService.send(absSender, new ConfMessage(user, chat, arguments));
     }
 }

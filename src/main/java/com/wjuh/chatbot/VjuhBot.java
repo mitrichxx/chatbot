@@ -11,8 +11,6 @@ import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.helpCommand.HelpCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import javax.annotation.PostConstruct;
 import java.util.*;
@@ -57,38 +55,28 @@ public class VjuhBot extends TelegramLongPollingBot {
                         botCommand.execute(this, update.getMessage().getFrom(), update.getMessage().getChat(), Arrays.stream(args).skip(1).toArray(String[]::new));
                     }
                 } else if (update.getMessage().hasText()) {
-                    log.info("###" + update.getMessage().getText());
-                    SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
-                            .setChatId(update.getMessage().getChatId())
-                            .setText(update.getMessage().getText())
-                            .setReplyMarkup(getUnitsKeyboard());
-                    execute(message);
+                    String text = update.getMessage().getText();
+                    log.info("###" + text);
+
+                    BaseState state = VjuhBot.USER_MAP.get(update.getMessage().getFrom().getId());
+                    switch (state) {
+                        case FRAUD:
+                            if (text.equals("Да") || text.equals("Нет")) {
+
+                            }
+                            break;
+                        default:
+                            SendMessage message = new SendMessage()
+                                    .setChatId(update.getMessage().getChatId())
+                                    .setText(text);
+                            execute(message);
+                            break;
+                    }
                 }
             }
         } catch (Exception e) {
             log.info("Failed process message", e);
         }
-    }
-
-    private static ReplyKeyboardMarkup getUnitsKeyboard() {
-        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
-        replyKeyboardMarkup.setSelective(true);
-        replyKeyboardMarkup.setResizeKeyboard(true);
-        replyKeyboardMarkup.setOneTimeKeyboard(true);
-
-        List<KeyboardRow> keyboard = new ArrayList<>();
-        KeyboardRow row = new KeyboardRow();
-        row.add("123");
-        keyboard.add(row);
-        row = new KeyboardRow();
-        row.add("456");
-        keyboard.add(row);
-        row = new KeyboardRow();
-        row.add("789");
-        keyboard.add(row);
-        replyKeyboardMarkup.setKeyboard(keyboard);
-
-        return replyKeyboardMarkup;
     }
 
     @Override
