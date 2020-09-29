@@ -3,30 +3,85 @@ package com.wjuh.chatbot;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
+import org.telegram.telegrambots.extensions.bots.commandbot.commands.helpCommand.HelpCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiValidationException;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 public class VjuhBot extends TelegramLongPollingBot {
+
+    private static Map<String, BotCommand> commandMap = new HashMap<>();
+    static {
+        commandMap.put("/help", new HelpCommand());
+    }
 
     @Override
     public void onUpdateReceived(Update update) {
         log.info("onUpdateReceived");
         // We check if the update has a message and the message has text
-        if (update.hasMessage() && update.getMessage().hasText()) {
-            log.info("###" + update.getMessage().getText());
-            SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
-                    .setChatId(update.getMessage().getChatId())
-                    .setText(update.getMessage().getText());
-            try {
-                execute(message); // Call method to send the message
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
+
+        try {
+            if (update.hasMessage()) {
+                if (update.getMessage().isCommand()) {
+                    BotCommand botCommand = commandMap.get(update.getMessage().getText().split(" ")[0]);
+                    if (botCommand == null) {
+                        SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
+                                .setChatId(update.getMessage().getChatId())
+                                .setText("Unknown command");
+                        execute(message);
+                    } else {
+                        botCommand.execute(this, update.getPollAnswer().getUser(), update.getMessage().getChat(), null);
+                    }
+                } else if (update.getMessage().hasText()) {
+                    log.info("###" + update.getMessage().getText());
+                    SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
+                            .setChatId(update.getMessage().getChatId())
+                            .setText(update.getMessage().getText())
+                            .setReplyMarkup(getUnitsKeyboard());
+                    try {
+                        execute(message); // Call method to send the message
+                    } catch (TelegramApiException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
+        } catch (Exception e) {
+
         }
+
+
+    }
+
+    private static ReplyKeyboardMarkup getUnitsKeyboard() {
+        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(false);
+
+        List<KeyboardRow> keyboard = new ArrayList<>();
+        KeyboardRow row = new KeyboardRow();
+        row.add("123");
+        keyboard.add(row);
+        row = new KeyboardRow();
+        row.add("456");
+        keyboard.add(row);
+        row = new KeyboardRow();
+        row.add("789");
+        keyboard.add(row);
+        replyKeyboardMarkup.setKeyboard(keyboard);
+
+        return replyKeyboardMarkup;
     }
 
     @Override
