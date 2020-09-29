@@ -6,10 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Loser {
-    private String userId;
-    private boolean isFiled;
+    private Integer userId;
+    private Boolean isFiled;
 
     public String toSting() {
-        return "User " + userId;
+        return "User=" + userId + ", isFiled=" + isFiled;
     }
 }

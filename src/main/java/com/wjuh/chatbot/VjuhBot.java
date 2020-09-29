@@ -6,8 +6,8 @@ import com.wjuh.chatbot.message.ConfMessage;
 import com.wjuh.chatbot.message.ProductAnswerMessage;
 import com.wjuh.chatbot.message.ProductMessage;
 import com.wjuh.chatbot.message.ProductQuestionMessage;
+import com.wjuh.chatbot.model.StateModel;
 import com.wjuh.chatbot.service.SenderService;
-import com.wjuh.chatbot.state.BaseState;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,12 +19,13 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 import javax.annotation.PostConstruct;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 @Component
 public class VjuhBot extends TelegramLongPollingBot {
 
-    public static Map<Integer, BaseState> USER_MAP = new HashMap<>();
+    public static ConcurrentHashMap<Integer, StateModel> USER_MAP = new ConcurrentHashMap<>();
 
     private static Map<String, BotCommand> commandMap = new HashMap<>();
     static {
@@ -66,8 +67,11 @@ public class VjuhBot extends TelegramLongPollingBot {
                     String text = update.getMessage().getText();
                     log.info("###" + text);
 
-                    BaseState state = VjuhBot.USER_MAP.get(update.getMessage().getFrom().getId());
-                    switch (state) {
+                    StateModel state = VjuhBot.USER_MAP.get(update.getMessage().getFrom().getId());
+                    if (state == null) {
+                        return;
+                    }
+                    switch (state.getState()) {
                         case FRAUD:
                             log.info("### fraud state, userId=" + update.getMessage().getFrom().getId());
                             if (ConfMessage.ANSWERS.contains(text)) {
@@ -109,5 +113,4 @@ public class VjuhBot extends TelegramLongPollingBot {
     public String getBotToken() {
         return "1316571024:AAF9M6Qz0rOl2mRkN-f8kp6_MfPBlkC1-5M";
     }
-
 }

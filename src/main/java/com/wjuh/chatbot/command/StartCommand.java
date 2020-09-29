@@ -4,6 +4,7 @@ import com.wjuh.chatbot.VjuhBot;
 import com.wjuh.chatbot.message.ConfMessage;
 import com.wjuh.chatbot.message.StartMessage;
 import com.wjuh.chatbot.message.WelcomeMessage;
+import com.wjuh.chatbot.model.StateModel;
 import com.wjuh.chatbot.service.SenderService;
 import com.wjuh.chatbot.state.BaseState;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,7 @@ public class StartCommand extends BotCommand {
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] arguments) {
         log.info("### Start");
-        VjuhBot.USER_MAP.compute(user.getId(), (k, v) -> BaseState.FRAUD);
+        VjuhBot.USER_MAP.compute(user.getId(), (k, v) -> new StateModel(BaseState.FRAUD, chat, user));
         senderService.send(absSender, new StartMessage(user, chat, arguments));
         senderService.send(absSender, new WelcomeMessage(user, chat, arguments));
         senderService.send(absSender, new ConfMessage(user, chat, arguments));
