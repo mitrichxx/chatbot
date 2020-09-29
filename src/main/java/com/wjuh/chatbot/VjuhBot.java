@@ -1,5 +1,6 @@
 package com.wjuh.chatbot;
 
+import com.wjuh.chatbot.commands.HelloCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
@@ -17,6 +18,7 @@ public class VjuhBot extends TelegramLongPollingBot {
 
     private static Map<String, BotCommand> commandMap = new HashMap<>();
     static {
+        commandMap.put("/hello", new HelloCommand());
         commandMap.put("/help", new HelpCommand());
     }
 
@@ -36,6 +38,8 @@ public class VjuhBot extends TelegramLongPollingBot {
                                 .setText("Unknown command");
                         execute(message);
                     } else {
+                        log.info("Bot command: " + botCommand.getDescription());
+                        log.info("Try to execute command: " + " " + this.getBaseUrl() + " " + update.getMessage().getChat().getDescription());
                         botCommand.execute(this, update.getMessage().getFrom(), update.getMessage().getChat(), Arrays.stream(args).skip(1).toArray(String[]::new));
                     }
                 } else if (update.getMessage().hasText()) {
