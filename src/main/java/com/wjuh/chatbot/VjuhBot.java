@@ -118,7 +118,9 @@ public class VjuhBot extends TelegramLongPollingBot {
                             } else if(TestBootVirusMessage.ANSWERS.contains(text)){
                                 senderService.send(this, new TestStuxnetMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
                             } else if(TestStuxnetMessage.ANSWERS.contains(text)){
-                                senderService.send(this, new TestTargetMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));;
+                                senderService.send(this, new TestTargetMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
+                            } else if(TestTargetMessage.ANSWERS.contains(text)) {
+                                senderService.send(this, new ResultTestMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
                             }
                             break;
                         default:

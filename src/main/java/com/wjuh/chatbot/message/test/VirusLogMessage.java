@@ -15,8 +15,7 @@ public class VirusLogMessage extends Message {
     public SendMessage execute() {
         return new SendMessage()
                 .setChatId(getChat().getId())
-                .setText("По ссылке может быть приложение с вирусом, которое загрузится на телефон, или сайт-ловушка, на котором мошенники попытаются получить номера банковских карт, ПИН- и CVV-коды."
-                        + getUser().getId() + ")")
+                .setText("По ссылке может быть приложение с вирусом, которое загрузится на телефон, или сайт-ловушка, на котором мошенники попытаются получить номера банковских карт, ПИН- и CVV-коды.")
                 .enableMarkdown(true);
 
     }

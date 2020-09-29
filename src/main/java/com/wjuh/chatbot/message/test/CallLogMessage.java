@@ -14,8 +14,7 @@ public class CallLogMessage extends Message {
     public SendMessage execute() {
         return new SendMessage()
                 .setChatId(getChat().getId())
-                .setText("Позвоните в банк и сообщите свой новый номер, чтобы мошенники не воспользовались вашим старым номером для перевода."
-                        + getUser().getId() + ")")
+                .setText("Позвоните в банк и сообщите свой новый номер, чтобы мошенники не воспользовались вашим старым номером для перевода.")
                 .enableMarkdown(true);
     }
 

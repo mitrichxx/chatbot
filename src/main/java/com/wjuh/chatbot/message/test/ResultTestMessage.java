@@ -5,8 +5,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 
-public class CardNumberLogMessage extends Message {
-    public CardNumberLogMessage(User user, Chat chat, String[] arguments) {
+public class ResultTestMessage extends Message {
+    public ResultTestMessage(User user, Chat chat, String[] arguments) {
         super(user, chat, arguments);
     }
 
@@ -14,7 +14,7 @@ public class CardNumberLogMessage extends Message {
     public SendMessage execute() {
         return new SendMessage()
                 .setChatId(getChat().getId())
-                .setText("Для перевода нужен только номер карты, а чаще всего достаточно номера вашего мобильного телефона. ПИН- и CVV-коды от банковских карт не следует сообщать никому, даже сотрудникам банка.\n")
+                .setText("Спасибо что прошли тест!\n Для принятия решения по оценке \"5+\" Ваши результаты отправлены в слушбу безопасности банка.")
                 .enableMarkdown(true);
     }
 
