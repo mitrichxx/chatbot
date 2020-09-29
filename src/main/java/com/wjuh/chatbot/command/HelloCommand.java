@@ -26,10 +26,6 @@ public class HelloCommand extends BotCommand {
 
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] arguments) {
-
-//        if (!DatabaseManager.getInstance().getUserStateForCommandsBot(user.getId())) {
-//            return;
-//        }return
         log.info("### hello");
         String userName = chat.getUserName();
         log.info("### Username: " + userName);

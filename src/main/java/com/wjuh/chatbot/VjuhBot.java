@@ -1,10 +1,6 @@
 package com.wjuh.chatbot;
 
-import com.wjuh.chatbot.command.HelloCommand;
-import com.wjuh.chatbot.command.InfoCommand;
-import com.wjuh.chatbot.command.StartCommand;
-import com.wjuh.chatbot.command.TestCommand;
-import com.wjuh.chatbot.message.*;
+import com.wjuh.chatbot.command.*;
 import com.wjuh.chatbot.model.StateModel;
 import com.wjuh.chatbot.message.ConfMessage;
 import com.wjuh.chatbot.message.ProductAnswerMessage;
@@ -17,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
-import org.telegram.telegrambots.extensions.bots.commandbot.commands.helpCommand.HelpCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -28,14 +23,8 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 @Component
 public class VjuhBot extends TelegramLongPollingBot {
-
     public static ConcurrentHashMap<Integer, StateModel> USER_MAP = new ConcurrentHashMap<>();
-
-    private static Map<String, BotCommand> commandMap = new HashMap<>();
-    static {
-        commandMap.put("/hello", new HelloCommand());
-        commandMap.put("/help", new HelpCommand());
-    }
+    private static final Map<String, BotCommand> COMMAND_MAP = new HashMap<>();
 
     @Autowired
     private StartCommand startCommand;
@@ -45,12 +34,18 @@ public class VjuhBot extends TelegramLongPollingBot {
     private SenderService senderService;
     @Autowired
     private TestCommand testCommand;
+    @Autowired
+    private HelpCommand helpCommand;
+    @Autowired
+    private HelloCommand helloCommand;
 
     @PostConstruct
     public void init() {
-        commandMap.put("/start", startCommand);
-        commandMap.put("/info", infoCommand);
-        commandMap.put("/test", testCommand);
+        COMMAND_MAP.put("/start", startCommand);
+        COMMAND_MAP.put("/info", infoCommand);
+        COMMAND_MAP.put("/test", testCommand);
+        COMMAND_MAP.put("/help", helpCommand);
+        COMMAND_MAP.put("/hello", helloCommand);
     }
 
     @Override
@@ -63,7 +58,7 @@ public class VjuhBot extends TelegramLongPollingBot {
                 if (update.getMessage().isCommand()) {
                     String[] strings = update.getMessage().getText().split(" ");
                     String[] args = Arrays.stream(strings).skip(1).toArray(String[]::new);
-                    BotCommand botCommand = commandMap.get(strings[0]);
+                    BotCommand botCommand = COMMAND_MAP.get(strings[0]);
                     if (botCommand == null) {
                         SendMessage message = new SendMessage()
                                 .setChatId(update.getMessage().getChatId())
