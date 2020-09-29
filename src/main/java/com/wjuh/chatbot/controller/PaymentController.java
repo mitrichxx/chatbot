@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class PaymentController {
 
-    @CrossOrigin(origins = "https://fant0m.pro")
+    @CrossOrigin(origins = "*")
     @PostMapping(value = "/fail")
     public void postFail(@RequestBody Loser loser) {
         log.info("Loser: " + loser);

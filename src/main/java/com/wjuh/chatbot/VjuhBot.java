@@ -1,6 +1,8 @@
 package com.wjuh.chatbot;
 
 import com.wjuh.chatbot.commands.HelloCommand;
+import com.wjuh.chatbot.commands.StartCommand;
+import com.wjuh.chatbot.state.BaseState;
 import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
@@ -15,10 +17,13 @@ import java.util.*;
 @Slf4j
 public class VjuhBot extends TelegramLongPollingBot {
 
+    public static Map<Integer, BaseState> USER_MAP = new HashMap<>();
+
     private static Map<String, BotCommand> commandMap = new HashMap<>();
     static {
         commandMap.put("/hello", new HelloCommand());
         commandMap.put("/help", new HelpCommand());
+        commandMap.put("/start", new StartCommand());
     }
 
     @Override
