@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { CardValidator } from '@app/validators/card-validator';
+import { ActivatedRoute } from '@angular/router';
+
+import { switchMap } from 'rxjs/operators'
+import { PaymentService } from '@app/services/payment.service';
 
 export enum Month {
   JANUARY = '01',
@@ -50,10 +54,12 @@ export class PaymentComponent implements OnInit {
     ],
   });
 
-  public months: Array<string> = [];
-  public years: Array<number> = [];
+  months: Array<string> = [];
+  years: Array<number> = [];
+  userId: string;
+  isSubmited = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private paymentService: PaymentService) {}
 
   ngOnInit(): void {
     this.paymentForm.get('cardHolder').valueChanges.subscribe((val) => {
@@ -70,6 +76,17 @@ export class PaymentComponent implements OnInit {
 
     this.months = this.getMonths();
     this.years = this.getYears();
+
+    this.route.queryParams.subscribe(params => {
+      this.userId = params?.id;
+
+        console.info('user id: ', this.userId);
+
+        return this.paymentService.sendFail(this.userId, false)
+          .subscribe((response) => {
+            console.info('user id is submitted');
+          });
+    });
   }
 
   getMonths(): Array<string> {
@@ -77,6 +94,7 @@ export class PaymentComponent implements OnInit {
     for (const key of Object.keys(Month)) {
       months.push(Month[key]);
     }
+
     return months;
   }
 
@@ -90,7 +108,11 @@ export class PaymentComponent implements OnInit {
   }
 
   onSubmit(): void {
-    alert('Thanks!');
+    this.paymentService.sendFail(this.userId, true)
+          .subscribe((response) => {
+            this.isSubmited = true;
+            console.info('user card data is submitted');
+          });
   }
 
   isVisa(): boolean {
