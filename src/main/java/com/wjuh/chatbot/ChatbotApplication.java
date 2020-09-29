@@ -2,7 +2,6 @@ package com.wjuh.chatbot;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.telegram.telegrambots.ApiContextInitializer;
@@ -14,11 +13,6 @@ import javax.annotation.PostConstruct;
 @SpringBootApplication
 @Slf4j
 public class ChatbotApplication {
-    @Value("${string.glad_to_hear_your_opinion}")
-    private String qwe;
-    @Value("${string.hello_bot")
-    public String helloBot;
-
     static {
         initBot();
     }
