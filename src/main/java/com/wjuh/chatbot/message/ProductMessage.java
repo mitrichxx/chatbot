@@ -3,11 +3,6 @@ package com.wjuh.chatbot.message;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ProductMessage extends Message {
     public ProductMessage(User user, Chat chat, String[] arguments) {
@@ -36,30 +31,11 @@ public class ProductMessage extends Message {
                         "  — всего 999 рублей в год. Регулярная цена годовой подписки на базовый СберПрайм начиная с 2021 года составит не более 1990 рублей в год," +
                         "  а возможно и меньше. В подписку входит скидки в онлайн-кинотеатре Оkko, аккаунт без рекламы в СберЗвуке," +
                         "  бесплатная доставка продуктов через СберМаркет, 30 Гб в облачном хранилище СберДиск, скидка 10% на 10 заказов в месяц в Delivery Club," +
-                        "  скидка 10% на такси Ситимобил и др.")
-                .setReplyMarkup(getUnitsKeyboard());
+                        "  скидка 10% на такси Ситимобил и др.");
     }
 
     @Override
     public String getTag() {
         return "PRODUCTMESSAGE";
-    }
-
-    private static ReplyKeyboardMarkup getUnitsKeyboard() {
-        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
-        replyKeyboardMarkup.setSelective(true);
-        replyKeyboardMarkup.setResizeKeyboard(true);
-        replyKeyboardMarkup.setOneTimeKeyboard(true);
-
-        List<KeyboardRow> keyboard = new ArrayList<>();
-        KeyboardRow row = new KeyboardRow();
-        row.add("Да");
-        keyboard.add(row);
-        row = new KeyboardRow();
-        row.add("Нет");
-        keyboard.add(row);
-        replyKeyboardMarkup.setKeyboard(keyboard);
-
-        return replyKeyboardMarkup;
     }
 }
