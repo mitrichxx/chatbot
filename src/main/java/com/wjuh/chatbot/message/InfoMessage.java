@@ -13,7 +13,7 @@ public class InfoMessage extends Message {
     public SendMessage execute() {
         return new SendMessage()
                 .setChatId(getChat().getId())
-                .setText("[Информация о команде](http://sber.fant0m.pro/" + getUser().getId() + ")")
+                .setText("[Информация о команде](http://sber.fant0m.pro/)")
                 .enableMarkdown(true);
     }
 
