@@ -53,7 +53,7 @@ public class VjuhBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return null;
+        return "vjuh_bot";
     }
 
     @Override
