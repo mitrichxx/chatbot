@@ -28,7 +28,6 @@ public class TestCommand extends BotCommand {
     public void execute(AbsSender absSender, User user, Chat chat, String[] arguments) {
         log.info("### Test");
         VjuhBot.USER_MAP.compute(user.getId(), (k, v) -> new StateModel(BaseState.TEST, chat, user));
-        senderService.send(absSender, new CardNumberLogMessage(user, chat, arguments));
         senderService.send(absSender, new TestSmsReceivedMessage(user, chat, arguments));
     }
 }
