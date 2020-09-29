@@ -1,17 +1,15 @@
 package com.wjuh.chatbot;
 
+import com.wjuh.chatbot.commands.HelloCommand;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.helpCommand.HelpCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiValidationException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +21,7 @@ public class VjuhBot extends TelegramLongPollingBot {
 
     private static Map<String, BotCommand> commandMap = new HashMap<>();
     static {
+        commandMap.put("/hello", new HelloCommand());
         commandMap.put("/help", new HelpCommand());
     }
 
@@ -35,12 +34,14 @@ public class VjuhBot extends TelegramLongPollingBot {
             if (update.hasMessage()) {
                 if (update.getMessage().isCommand()) {
                     BotCommand botCommand = commandMap.get(update.getMessage().getText().split(" ")[0]);
+                    log.info("Bot command: " + botCommand.getDescription());
                     if (botCommand == null) {
                         SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
                                 .setChatId(update.getMessage().getChatId())
                                 .setText("Unknown command");
                         execute(message);
                     } else {
+                        log.info("Try to execute command: " + " " + this.getBaseUrl() + " " + update.getMessage().getChat().getDescription());
                         botCommand.execute(this, update.getPollAnswer().getUser(), update.getMessage().getChat(), null);
                     }
                 } else if (update.getMessage().hasText()) {
