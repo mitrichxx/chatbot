@@ -1,6 +1,9 @@
 package com.wjuh.chatbot.command;
 
+import com.wjuh.chatbot.config.StringResources;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
@@ -9,7 +12,12 @@ import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Slf4j
+@Component
 public class HelloCommand extends BotCommand {
+
+    @Autowired
+    private StringResources stringResources;
+
     private static final String LOGTAG = "HELLOCOMMAND";
 
     public HelloCommand() {
@@ -41,7 +49,7 @@ public class HelloCommand extends BotCommand {
         SendMessage answer = new SendMessage();
         answer.setChatId(chat.getId().toString());
         answer.setText(messageTextBuilder.toString());
-        log.info("Answer: " + answer.getText());
+        log.info("Answer: " + answer.getText() + stringResources.glad_to_hear_your_opinion);
         try {
             absSender.execute(answer);
         } catch (TelegramApiException e) {

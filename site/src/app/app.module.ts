@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,11 +21,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { PaymentService } from './services/payment.service';
 
 @NgModule({
   declarations: [AppComponent, MainPageComponent, PaymentComponent],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
@@ -42,7 +45,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatMenuModule,
     MatExpansionModule,
   ],
-  providers: [],
+  providers: [
+    PaymentService
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
