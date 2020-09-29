@@ -1,9 +1,11 @@
 package com.wjuh.chatbot;
 
-import com.wjuh.chatbot.commands.HelloCommand;
-import com.wjuh.chatbot.commands.StartCommand;
+import com.wjuh.chatbot.command.HelloCommand;
+import com.wjuh.chatbot.command.StartCommand;
 import com.wjuh.chatbot.state.BaseState;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.helpCommand.HelpCommand;
@@ -12,9 +14,11 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
 
 @Slf4j
+@Component
 public class VjuhBot extends TelegramLongPollingBot {
 
     public static Map<Integer, BaseState> USER_MAP = new HashMap<>();
@@ -23,7 +27,14 @@ public class VjuhBot extends TelegramLongPollingBot {
     static {
         commandMap.put("/hello", new HelloCommand());
         commandMap.put("/help", new HelpCommand());
-        commandMap.put("/start", new StartCommand());
+    }
+
+    @Autowired
+    private StartCommand startCommand;
+
+    @PostConstruct
+    public void init() {
+        commandMap.put("/start", startCommand);
     }
 
     @Override

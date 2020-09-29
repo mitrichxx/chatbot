@@ -11,6 +11,6 @@ public class PaymentController {
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/fail")
     public void postFail(@RequestBody Loser loser) {
-        log.info("Loser: " + loser);
+        log.info("Loser: " + loser.toSting());
     }
 }

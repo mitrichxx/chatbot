@@ -1,7 +1,5 @@
-package com.wjuh.chatbot.commands;
+package com.wjuh.chatbot.command;
 
-import com.wjuh.chatbot.VjuhBot;
-import com.wjuh.chatbot.state.BaseState;
 import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -11,23 +9,25 @@ import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Slf4j
-public class StartCommand extends BotCommand {
-    private static final String LOGTAG = "STARTCOMMAND";
+public class HelloCommand extends BotCommand {
+    private static final String LOGTAG = "HELLOCOMMAND";
 
-    public StartCommand() {
-        super("start", "Say start to this bot");
+    public HelloCommand() {
+        super("hello", "Say hallo to this bot");
     }
 
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] arguments) {
-        log.info("### start");
+
+//        if (!DatabaseManager.getInstance().getUserStateForCommandsBot(user.getId())) {
+//            return;
+//        }return
+        log.info("### hello");
         String userName = chat.getUserName();
         log.info("### Username: " + userName);
         if (userName == null || userName.isEmpty()) {
             userName = user.getFirstName() + " " + user.getLastName();
         }
-
-        VjuhBot.USER_MAP.compute(user.getId(), (k, v) -> BaseState.FRAUD);
 
         StringBuilder messageTextBuilder = new StringBuilder("Hello ").append(userName);
         if (arguments != null && arguments.length > 0) {
