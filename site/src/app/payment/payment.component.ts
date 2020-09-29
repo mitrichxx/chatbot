@@ -108,9 +108,9 @@ export class PaymentComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.isSubmited = true;
     this.paymentService.sendFail(this.userId, true)
-          .subscribe((response) => {
-            this.isSubmited = true;
+          .subscribe(() => {
             console.info('user card data is submitted');
           });
   }
