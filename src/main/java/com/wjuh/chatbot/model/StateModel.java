@@ -3,15 +3,19 @@ package com.wjuh.chatbot.model;
 import com.wjuh.chatbot.state.BaseState;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 
+import java.util.TimerTask;
+
 @Getter
 @Setter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class StateModel {
-    private BaseState state;
-    private Chat chat;
-    private User user;
+    final private BaseState state;
+    final private Chat chat;
+    final private User user;
+    private TimerTask hurryUp;
 }

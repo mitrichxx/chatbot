@@ -6,6 +6,7 @@ import com.wjuh.chatbot.message.FailMessage;
 import com.wjuh.chatbot.model.Loser;
 import com.wjuh.chatbot.model.StateModel;
 import com.wjuh.chatbot.service.SenderService;
+import com.wjuh.chatbot.state.BaseState;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -47,6 +48,11 @@ public class PaymentController {
                 StateModel state = VjuhBot.USER_MAP.get(userId);
                 if (state == null) {
                     log.info("State not found");
+                    return;
+                }
+
+                if (!BaseState.FRAUD.equals(state.getState())) {
+                    log.info("State not fraud");
                     return;
                 }
 

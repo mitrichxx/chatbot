@@ -1,14 +1,12 @@
 package com.wjuh.chatbot;
 
 import com.wjuh.chatbot.command.*;
+import com.wjuh.chatbot.message.*;
 import com.wjuh.chatbot.message.edu.*;
 import com.wjuh.chatbot.model.StateModel;
-import com.wjuh.chatbot.message.ConfMessage;
-import com.wjuh.chatbot.message.ProductAnswerMessage;
-import com.wjuh.chatbot.message.ProductMessage;
-import com.wjuh.chatbot.message.ProductQuestionMessage;
 import com.wjuh.chatbot.message.test.*;
 import com.wjuh.chatbot.service.SenderService;
+import com.wjuh.chatbot.state.BaseState;
 import com.wjuh.chatbot.state.EduState;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +17,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import javax.annotation.PostConstruct;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
@@ -30,6 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class VjuhBot extends TelegramLongPollingBot {
     public static ConcurrentHashMap<Integer, StateModel> USER_MAP = new ConcurrentHashMap<>();
     private static final Map<String, BotCommand> COMMAND_MAP = new HashMap<>();
+    private static final List<String> RED_WORDS = Arrays.asList("мошен", "фишинг", "нельз", "безопасн", "карт");
 
     @Autowired
     private StartCommand startCommand;
@@ -95,6 +91,22 @@ public class VjuhBot extends TelegramLongPollingBot {
                                 senderService.send(this, new ProductQuestionMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
                             } else if (ProductQuestionMessage.ANSWERS.contains(text)) {
                                 senderService.send(this, new ProductAnswerMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
+                                if (state.getHurryUp() == null) {
+                                    state.setHurryUp(new TimerTask() {
+                                        @Override
+                                        public void run() {
+                                            if (BaseState.FRAUD.equals(state.getState())) {
+                                                senderService.send(VjuhBot.this, new HurryUpMessage(state.getUser(), state.getChat(), null));
+                                            }
+                                        }
+                                    });
+                                    Timer timer = new Timer("Timer");
+
+                                    long delay = 30000L;
+                                    timer.schedule(state.getHurryUp(), delay);
+                                }
+                            } else if (RED_WORDS.stream().anyMatch(text::contains)) {
+                                senderService.send(this, new ItsOkToShareYourDataMessage(state.getUser(), state.getChat(), null));
                             }
                             break;
                         case TEST:
