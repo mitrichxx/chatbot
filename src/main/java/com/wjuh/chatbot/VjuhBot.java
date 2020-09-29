@@ -62,7 +62,7 @@ public class VjuhBot extends TelegramLongPollingBot {
         COMMAND_MAP.put("/help", helpCommand);
         COMMAND_MAP.put("/hello", helloCommand);
         COMMAND_MAP.put("/vjuh", vjuhCommand);
-        COMMAND_MAP.put("/edu", eduCommand);
+        COMMAND_MAP.put("/education", eduCommand);
     }
 
     @Override
