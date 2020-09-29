@@ -3,8 +3,14 @@ package com.wjuh.chatbot;
 import com.wjuh.chatbot.command.HelloCommand;
 import com.wjuh.chatbot.command.InfoCommand;
 import com.wjuh.chatbot.command.StartCommand;
+import com.wjuh.chatbot.command.TestCommand;
 import com.wjuh.chatbot.message.*;
 import com.wjuh.chatbot.model.StateModel;
+import com.wjuh.chatbot.message.ConfMessage;
+import com.wjuh.chatbot.message.ProductAnswerMessage;
+import com.wjuh.chatbot.message.ProductMessage;
+import com.wjuh.chatbot.message.ProductQuestionMessage;
+import com.wjuh.chatbot.message.test.*;
 import com.wjuh.chatbot.service.SenderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +43,14 @@ public class VjuhBot extends TelegramLongPollingBot {
     private InfoCommand infoCommand;
     @Autowired
     private SenderService senderService;
+    @Autowired
+    private TestCommand testCommand;
 
     @PostConstruct
     public void init() {
         commandMap.put("/start", startCommand);
         commandMap.put("/info", infoCommand);
+        commandMap.put("/test", testCommand);
     }
 
     @Override
@@ -80,6 +89,36 @@ public class VjuhBot extends TelegramLongPollingBot {
                                 senderService.send(this, new ProductQuestionMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
                             } else if (ProductQuestionMessage.ANSWERS.contains(text)) {
                                 senderService.send(this, new ProductAnswerMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
+                            }
+                            break;
+                        case TEST:
+                            log.info("### Test state, userId=" + update.getMessage().getFrom().getId());
+                            if(TestSmsReceivedMessage.ANSWERS.contains(text)) {
+//                                senderService.send(this, new CardNumberLogMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
+                                senderService.send(this, new VirusLogMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
+                                senderService.send(this, new TestPhoneNumberChangedMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
+                            } else if (TestPhoneNumberChangedMessage.ANSWERS.contains(text)) {
+                                senderService.send(this, new CallLogMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
+                                senderService.send(this, new TestWifiMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
+                            } else if (TestWifiMessage.ANSWERS.contains(text)) {
+                                senderService.send(this, new WifiLogMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
+                                senderService.send(this, new TestAuthentificationMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
+                            } else if (TestAuthentificationMessage.ANSWERS.contains(text)) {
+                                senderService.send(this, new TestOsMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
+                            } else if(TestOsMessage.ANSWERS.contains(text)) {
+                                senderService.send(this, new TestLastProtectionMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
+                            } else if(TestLastProtectionMessage.ANSWERS.contains(text)) {
+                                senderService.send(this, new TestSecurityFraudMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
+                            } else if(TestSecurityFraudMessage.ANSWERS.contains(text)) {
+                                senderService.send(this, new TestSecurityWayMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
+                            } else if(TestSecurityWayMessage.ANSWERS.contains(text)) {
+                                senderService.send(this, new TestCryptoSystemMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
+                            } else if(TestCryptoSystemMessage.ANSWERS.contains(text)) {
+                                senderService.send(this, new TestBootVirusMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
+                            } else if(TestBootVirusMessage.ANSWERS.contains(text)){
+                                senderService.send(this, new TestStuxnetMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
+                            } else if(TestStuxnetMessage.ANSWERS.contains(text)){
+                                senderService.send(this, new TestTargetMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));;
                             }
                             break;
                         default:
