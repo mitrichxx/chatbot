@@ -1,6 +1,11 @@
 package com.wjuh.chatbot;
 
 import com.wjuh.chatbot.command.*;
+import com.wjuh.chatbot.command.*;
+import com.wjuh.chatbot.config.EduStringResources;
+import com.wjuh.chatbot.message.*;
+import com.wjuh.chatbot.message.edu.*;
+import com.wjuh.chatbot.model.StateModel;
 import com.wjuh.chatbot.message.ConfMessage;
 import com.wjuh.chatbot.message.ProductAnswerMessage;
 import com.wjuh.chatbot.message.ProductMessage;
@@ -8,6 +13,7 @@ import com.wjuh.chatbot.message.ProductQuestionMessage;
 import com.wjuh.chatbot.message.test.*;
 import com.wjuh.chatbot.model.StateModel;
 import com.wjuh.chatbot.service.SenderService;
+import com.wjuh.chatbot.state.EduState;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -43,6 +49,10 @@ public class VjuhBot extends TelegramLongPollingBot {
     private HelloCommand helloCommand;
     @Autowired
     private VjuhCommand vjuhCommand;
+    @Autowired
+    private EduCommand eduCommand;
+    @Autowired
+    private EduStringResources eduStringResources;
 
     @PostConstruct
     public void init() {
@@ -52,6 +62,7 @@ public class VjuhBot extends TelegramLongPollingBot {
         COMMAND_MAP.put("/help", helpCommand);
         COMMAND_MAP.put("/hello", helloCommand);
         COMMAND_MAP.put("/vjuh", vjuhCommand);
+        COMMAND_MAP.put("/edu", eduCommand);
     }
 
     @Override
@@ -122,6 +133,86 @@ public class VjuhBot extends TelegramLongPollingBot {
                                 senderService.send(this, new ResultTestMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
                             }
                             break;
+                        case EDUCATION:
+                            final EduState eduState = EduState.states.getOrDefault(update.getMessage().getFrom().getId(), EduState.START);
+
+                            String correctAnswer = null;
+                            String explanation = null;
+                            Message next = null;
+
+                            switch (eduState) {
+
+                                case START:
+                                    senderService.send(this, new EduMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null,
+                                            eduStringResources.string_edu_q1, new String[]{eduStringResources.string_edu_q1_a, eduStringResources.string_edu_q1_b, eduStringResources.string_edu_q1_c, } ));
+                                    EduState.states.put(update.getMessage().getFrom().getId(), EduState.Q1);
+                                    break;
+                                case Q1:
+                                    correctAnswer = eduStringResources.string_edu_q1_b;
+                                    explanation = eduStringResources.string_edu_e1;
+                                    next = new EduMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null,
+                                            eduStringResources.string_edu_q2,
+                                            new String[]{eduStringResources.string_edu_q2_a, eduStringResources.string_edu_q2_b, eduStringResources.string_edu_q2_c, } );
+                                    EduState.states.put(update.getMessage().getFrom().getId(), EduState.Q2);
+                                    break;
+                                case Q2:
+                                    correctAnswer = eduStringResources.string_edu_q2_b;
+                                    explanation = eduStringResources.string_edu_e2;
+                                    next = new EduMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null,
+                                            eduStringResources.string_edu_q3,
+                                            new String[]{eduStringResources.string_edu_q3_a, eduStringResources.string_edu_q3_b, eduStringResources.string_edu_q3_c, } );
+                                    EduState.states.put(update.getMessage().getFrom().getId(), EduState.Q3);
+                                    break;
+                                case Q3:
+                                    correctAnswer = eduStringResources.string_edu_q3_c;
+                                    explanation = eduStringResources.string_edu_e3;
+                                    next = new EduMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null,
+                                            eduStringResources.string_edu_q4,
+                                            new String[]{eduStringResources.string_edu_q4_a, eduStringResources.string_edu_q4_b, eduStringResources.string_edu_q4_c, } );
+                                    EduState.states.put(update.getMessage().getFrom().getId(), EduState.Q4);
+                                    break;
+                                case Q4:
+                                    correctAnswer = eduStringResources.string_edu_q4_a;
+                                    explanation = eduStringResources.string_edu_e4;
+                                    next = new EduMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null,
+                                            eduStringResources.string_edu_q5,
+                                            new String[]{eduStringResources.string_edu_q5_a, eduStringResources.string_edu_q5_b, eduStringResources.string_edu_q5_c, } );
+                                    EduState.states.put(update.getMessage().getFrom().getId(), EduState.Q5);
+                                    break;
+                                case Q5:
+                                    correctAnswer = eduStringResources.string_edu_q5_a;
+                                    explanation = eduStringResources.string_edu_e5;
+                                    next = new EduMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null,
+                                            eduStringResources.string_edu_q6,
+                                            new String[]{eduStringResources.string_edu_q6_a, eduStringResources.string_edu_q6_b } );
+                                    EduState.states.put(update.getMessage().getFrom().getId(), EduState.Q6);
+                                    break;
+                                case Q6:
+                                    correctAnswer = eduStringResources.string_edu_q6_a;
+                                    explanation = eduStringResources.string_edu_e6;
+                                    next = new EduMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null,
+                                            eduStringResources.string_edu_q7,
+                                            new String[]{eduStringResources.string_edu_q7_a, eduStringResources.string_edu_q7_b, eduStringResources.string_edu_q7_c, } );
+                                    EduState.states.put(update.getMessage().getFrom().getId(), EduState.Q7);
+                                    break;
+                                case Q7:
+                                    correctAnswer = eduStringResources.string_edu_q7_a;
+                                    explanation = eduStringResources.string_edu_e7;
+                                    next = new EduFinal(update.getMessage().getFrom(), update.getMessage().getChat(), null);
+                                    EduState.states.remove(update.getMessage().getFrom().getId());
+                                    VjuhBot.USER_MAP.remove(update.getMessage().getFrom().getId());
+                                    break;
+                            }
+
+                            if (text.equals(correctAnswer)) {
+                                senderService.send(this, new EduCorrect(update.getMessage().getFrom(), update.getMessage().getChat(), null ));
+                            } else {
+                                senderService.send(this, new EduIncorrect(update.getMessage().getFrom(), update.getMessage().getChat(), null ));
+                            }
+                            senderService.send(this, new EduExplanation(update.getMessage().getFrom(), update.getMessage().getChat(), null, explanation ));
+                            if (next != null) {
+                                senderService.send(this, next);
+                            }
                         default:
                             log.info("### state not found, userId=" + update.getMessage().getFrom().getId());
                             SendMessage message = new SendMessage()
