@@ -15,7 +15,7 @@ public class ProductQuestionMessage extends Message {
     public static final String SBER_PORTAL = "Умный экран SberPortal";
     public static final String SBER_PRIME = "SberPrime - подписка на сервисы экосистемы";
 
-    public static final List<String> PRODUCTS = Arrays.asList(SBER_BOX, SBER_PORTAL, SBER_PRIME);
+    public static final List<String> ANSWERS = Arrays.asList(SBER_BOX, SBER_PORTAL, SBER_PRIME);
 
     public ProductQuestionMessage(User user, Chat chat, String[] arguments) {
         super(user, chat, arguments);
@@ -25,7 +25,7 @@ public class ProductQuestionMessage extends Message {
     public SendMessage execute() {
         return new SendMessage()
                 .setChatId(getChat().getId())
-                .setText("Какой продукт вам понравился больше всего")
+                .setText("Какой продукт вам понравился больше всего?")
                 .setReplyMarkup(getUnitsKeyboard());
     }
 

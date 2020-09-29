@@ -2,6 +2,8 @@ package com.wjuh.chatbot;
 
 import com.wjuh.chatbot.command.HelloCommand;
 import com.wjuh.chatbot.command.StartCommand;
+import com.wjuh.chatbot.message.ConfMessage;
+import com.wjuh.chatbot.message.ProductAnswerMessage;
 import com.wjuh.chatbot.message.ProductMessage;
 import com.wjuh.chatbot.message.ProductQuestionMessage;
 import com.wjuh.chatbot.service.SenderService;
@@ -67,14 +69,16 @@ public class VjuhBot extends TelegramLongPollingBot {
                     BaseState state = VjuhBot.USER_MAP.get(update.getMessage().getFrom().getId());
                     switch (state) {
                         case FRAUD:
-                            if (text.equals("Да") || text.equals("Нет")) {
+                            log.info("### fraud state, userId=" + update.getMessage().getFrom().getId());
+                            if (ConfMessage.ANSWERS.contains(text)) {
                                 senderService.send(this, new ProductMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
                                 senderService.send(this, new ProductQuestionMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
-                            } else if (ProductQuestionMessage.PRODUCTS.contains(text)) {
-
+                            } else if (ProductQuestionMessage.ANSWERS.contains(text)) {
+                                senderService.send(this, new ProductAnswerMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
                             }
                             break;
                         default:
+                            log.info("### state not found, userId=" + update.getMessage().getFrom().getId());
                             SendMessage message = new SendMessage()
                                     .setChatId(update.getMessage().getChatId())
                                     .setText(text);

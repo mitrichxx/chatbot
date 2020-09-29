@@ -7,9 +7,15 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMar
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ConfMessage extends Message {
+    public static final String YES = "Да";
+    public static final String NO = "Нет";
+
+    public static final List<String> ANSWERS = Arrays.asList(YES, NO);
+
     public ConfMessage(User user, Chat chat, String[] arguments) {
         super(user, chat, arguments);
     }
@@ -35,10 +41,10 @@ public class ConfMessage extends Message {
 
         List<KeyboardRow> keyboard = new ArrayList<>();
         KeyboardRow row = new KeyboardRow();
-        row.add("Да");
+        row.add(YES);
         keyboard.add(row);
         row = new KeyboardRow();
-        row.add("Нет");
+        row.add(NO);
         keyboard.add(row);
         replyKeyboardMarkup.setKeyboard(keyboard);
 
