@@ -7,7 +7,7 @@
 </mat-toolbar>
 <div class="home-section">
   <div class="home-container">
-    <div class="home-heading">Вжух - и ты петух</div>
+    <div class="home-heading">Вжух - просто проверьте знания кибербезопасности</div>
     <div class="home-text">но это не точно</div>
     <div class="home-more">
       <a mat-flat-button href="#more" color="accent">О нас</a>
@@ -18,7 +18,7 @@
 </div>
 <div class="grid-container">
   <h1 class="mat-h1" id="more">Наша команда</h1>
-  <mat-grid-list cols="5" rowHeight="350px">
+  <mat-grid-list [cols]="col" rowHeight="350px">
     <mat-grid-tile *ngFor="let card of cards" [colspan]="card.cols" [rowspan]="card.rows">
       <mat-card class="dashboard-card">
         <mat-card-header>
@@ -49,19 +49,16 @@
   </mat-grid-list>
 </div>
 <div class="grid-container">
-  <h1 class="mat-h1" id="more">Пять добродетелей "Петуха"</h1>
+  <h1 class="mat-h1" id="more">Правила безопасности</h1>
   <mat-accordion class="example-headers-align">
     <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <b>Образованность</b>
+          <b>СМС-коды</b>
         </mat-panel-title>
-        <mat-icon>school</mat-icon>
+        <mat-icon>sms</mat-icon>
       </mat-expansion-panel-header>
-      <p>Возвышающийся огненно-красный гребень петуха чрезвычайно красивый. "Тот, кто с короной на голове, -
-        образован". "Корона" (гуань) в китайском языке созвучна со словом "чиновник, официальное лицо", а под
-        "образованностью" понимается "приличие". Китайцы в древности рассматривали почтенность в качестве приличия, а
-        выражение "с короной" стало иметь значение продвижения по службе.</p>
+      <p>Никому не говорите свои коды из СМС, даже если к вам обращаются от имени сотрудников Сбербанка. Это мошенники.</p>
       <mat-action-row>
         <button mat-button color="primary" (click)="nextStep()">Следующий</button>
       </mat-action-row>
@@ -69,12 +66,11 @@
     <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <b>Храбрость</b>
+          <b>Сторонние программы</b>
         </mat-panel-title>
-        <mat-icon>security</mat-icon>
+        <mat-icon>bug_report</mat-icon>
       </mat-expansion-panel-header>
-      <p>Петухи от природы обладают драчливым характером, но, считают китайцы, у них можно поучиться
-        храбрости, смелости и неустрашимости.</p>
+      <p>Если вас просят установить программу на ваше устройство под предлогом технической поддержки или защиты средств, не делайте этого. Это мошенники.</p>
       <mat-action-row>
         <button mat-button color="warn" (click)="prevStep()">Предыдущий</button>
         <button mat-button color="primary" (click)="nextStep()">Следующий</button>
@@ -83,13 +79,11 @@
     <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <b>Мужественность</b>
+          <b>Неизвестные номера</b>
         </mat-panel-title>
-        <mat-icon>accessible_forward</mat-icon>
+        <mat-icon>phone</mat-icon>
       </mat-expansion-panel-header>
-      <p>Курица или петух тщательно оберегают цыплят. В случае нападения малого ястреба или другого врага курица сразу
-        же прячет цыплят под свои крылья и громко кудахчет. А скорпионам и сколопендрам не избежать злого рока - быть
-        съеденными курами и петухами.</p>
+      <p>Сбербанк звонит клиентам с телефона 900 или 0440, если вам звонит служба безопасности с других телефонов – это мошенники.</p>
       <mat-action-row>
         <button mat-button color="warn" (click)="prevStep()">Предыдущий</button>
         <button mat-button color="primary" (click)="nextStep()">Следующий</button>
@@ -98,29 +92,11 @@
     <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <b>Гуманность</b>
+          <b>Защищённые счета</b>
         </mat-panel-title>
-        <mat-icon>favorite_border</mat-icon>
+        <mat-icon>security</mat-icon>
       </mat-expansion-panel-header>
-      <p>Любовь и взаимопомощь в куриной семье являются образцовой для животного мира. Петух, найдя червя, зовет курицу,
-        чтобы та подошла и склевала добычу. Курица заботится о каждом своем цыпленке, часто приносит в клюве насекомых
-        или рисовые зерна цыплятам, наблюдает, как они едят.</p>
-      <mat-action-row>
-        <button mat-button color="warn" (click)="prevStep()">Предыдущий</button>
-        <button mat-button color="primary" (click)="nextStep()">Следующий</button>
-      </mat-action-row>
-    </mat-expansion-panel>
-    <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <b>Доверие</b>
-        </mat-panel-title>
-        <mat-icon>pregnant_woman</mat-icon>
-      </mat-expansion-panel-header>
-      <p>На протяжении нескольких тысячелетий петух сопутствовал традиционному обычаю китайского народа, согласно
-        которому "с восходом солнца люди выходили работать, а с закатом - отдыхали". Петух каждый день возвещает
-        рассвет, своевременно будит людей. Такая добродетель птицы, как пунктуальность, получила всеобщую похвалу и
-        признание.</p>
+      <p>Сбербанк никогда не просит клиентов переводить средства на «защищённые счета», так делают только мошенники.</p>
       <mat-action-row>
         <button mat-button color="warn" (click)="prevStep()">Предыдущий</button>
       </mat-action-row>
