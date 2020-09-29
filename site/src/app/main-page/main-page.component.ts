@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-main-page',
@@ -75,8 +76,21 @@ export class MainPageComponent {
   ];
 
   step = 0;
+  col = 1;
 
-  constructor() {}
+  constructor(breakpointObserver: BreakpointObserver) {
+    breakpointObserver.observe([
+      Breakpoints.Medium,
+      Breakpoints.Small,
+      Breakpoints.XSmall
+    ]).subscribe(result => {
+      if (result.matches) {
+        this.col = 1;
+      } else {
+        this.col = 5;
+      }
+    });
+  }
 
   setStep(index: number): void {
     this.step = index;
