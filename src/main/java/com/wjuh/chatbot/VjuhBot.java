@@ -2,6 +2,9 @@ package com.wjuh.chatbot;
 
 import com.wjuh.chatbot.command.HelloCommand;
 import com.wjuh.chatbot.command.StartCommand;
+import com.wjuh.chatbot.message.ProductMessage;
+import com.wjuh.chatbot.message.ProductQuestionMessage;
+import com.wjuh.chatbot.service.SenderService;
 import com.wjuh.chatbot.state.BaseState;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,8 @@ public class VjuhBot extends TelegramLongPollingBot {
 
     @Autowired
     private StartCommand startCommand;
+    @Autowired
+    private SenderService senderService;
 
     @PostConstruct
     public void init() {
@@ -43,8 +48,9 @@ public class VjuhBot extends TelegramLongPollingBot {
         try {
             if (update.hasMessage()) {
                 if (update.getMessage().isCommand()) {
-                    String[] args = update.getMessage().getText().split(" ");
-                    BotCommand botCommand = commandMap.get(args[0]);
+                    String[] strings = update.getMessage().getText().split(" ");
+                    String[] args = Arrays.stream(strings).skip(1).toArray(String[]::new);
+                    BotCommand botCommand = commandMap.get(strings[0]);
                     if (botCommand == null) {
                         SendMessage message = new SendMessage()
                                 .setChatId(update.getMessage().getChatId())
@@ -52,7 +58,7 @@ public class VjuhBot extends TelegramLongPollingBot {
                         execute(message);
                     } else {
                         log.info("Try to execute command: " + " " + this.getBaseUrl() + " " + update.getMessage().getChat().getDescription());
-                        botCommand.execute(this, update.getMessage().getFrom(), update.getMessage().getChat(), Arrays.stream(args).skip(1).toArray(String[]::new));
+                        botCommand.execute(this, update.getMessage().getFrom(), update.getMessage().getChat(), args);
                     }
                 } else if (update.getMessage().hasText()) {
                     String text = update.getMessage().getText();
@@ -62,6 +68,9 @@ public class VjuhBot extends TelegramLongPollingBot {
                     switch (state) {
                         case FRAUD:
                             if (text.equals("Да") || text.equals("Нет")) {
+                                senderService.send(this, new ProductMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
+                                senderService.send(this, new ProductQuestionMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
+                            } else if (ProductQuestionMessage.PRODUCTS.contains(text)) {
 
                             }
                             break;
