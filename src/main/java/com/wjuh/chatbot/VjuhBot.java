@@ -15,6 +15,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import java.util.*;
 
 @Slf4j
+
 public class VjuhBot extends TelegramLongPollingBot {
 
     public static Map<Integer, BaseState> USER_MAP = new HashMap<>();
