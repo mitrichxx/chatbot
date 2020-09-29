@@ -1,12 +1,12 @@
 package com.wjuh.chatbot;
 
 import com.wjuh.chatbot.command.*;
-import com.wjuh.chatbot.model.StateModel;
 import com.wjuh.chatbot.message.ConfMessage;
 import com.wjuh.chatbot.message.ProductAnswerMessage;
 import com.wjuh.chatbot.message.ProductMessage;
 import com.wjuh.chatbot.message.ProductQuestionMessage;
 import com.wjuh.chatbot.message.test.*;
+import com.wjuh.chatbot.model.StateModel;
 import com.wjuh.chatbot.service.SenderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,10 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import javax.annotation.PostConstruct;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
@@ -38,6 +41,8 @@ public class VjuhBot extends TelegramLongPollingBot {
     private HelpCommand helpCommand;
     @Autowired
     private HelloCommand helloCommand;
+    @Autowired
+    private VjuhCommand vjuhCommand;
 
     @PostConstruct
     public void init() {
@@ -46,6 +51,7 @@ public class VjuhBot extends TelegramLongPollingBot {
         COMMAND_MAP.put("/test", testCommand);
         COMMAND_MAP.put("/help", helpCommand);
         COMMAND_MAP.put("/hello", helloCommand);
+        COMMAND_MAP.put("/vjuh", vjuhCommand);
     }
 
     @Override
