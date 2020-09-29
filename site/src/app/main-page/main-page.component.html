@@ -1,0 +1,129 @@
+<mat-toolbar color="primary">
+  <span>Vjuh</span>
+  <span class="spacer"></span>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+<div class="home-section">
+  <div class="home-container">
+    <div class="home-heading">Вжух - и ты петух</div>
+    <div class="home-text">но это не точно</div>
+    <div class="home-more">
+      <a mat-flat-button href="#more" color="accent">О нас</a>
+      <a mat-flat-button href="https://t.me/vjuh_sber_bot" target="_blank"
+        color="primary">@vjuh_sber_bot</a>
+    </div>
+  </div>
+</div>
+<div class="grid-container">
+  <h1 class="mat-h1" id="more">Наша команда</h1>
+  <mat-grid-list cols="5" rowHeight="350px">
+    <mat-grid-tile *ngFor="let card of cards" [colspan]="card.cols" [rowspan]="card.rows">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image" [ngStyle]="card.avatart"></div>
+          <mat-card-title>
+            {{card.title}}
+          </mat-card-title>
+          <mat-card-subtitle>{{card.post}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <mat-list>
+            <mat-list-item>
+              <mat-icon mat-list-icon>email</mat-icon>
+              <div mat-line> {{card.email}}</div>
+            </mat-list-item>
+            <mat-list-item>
+              <mat-icon mat-list-icon>phone</mat-icon>
+              <div mat-line> {{card.phone}}</div>
+            </mat-list-item>
+            <mat-list-item>
+              <mat-icon mat-list-icon>apartment</mat-icon>
+              <div mat-line> {{card.city}}</div>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+<div class="grid-container">
+  <h1 class="mat-h1" id="more">Пять добродетелей "Петуха"</h1>
+  <mat-accordion class="example-headers-align">
+    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <b>Образованность</b>
+        </mat-panel-title>
+        <mat-icon>school</mat-icon>
+      </mat-expansion-panel-header>
+      <p>Возвышающийся огненно-красный гребень петуха чрезвычайно красивый. "Тот, кто с короной на голове, -
+        образован". "Корона" (гуань) в китайском языке созвучна со словом "чиновник, официальное лицо", а под
+        "образованностью" понимается "приличие". Китайцы в древности рассматривали почтенность в качестве приличия, а
+        выражение "с короной" стало иметь значение продвижения по службе.</p>
+      <mat-action-row>
+        <button mat-button color="primary" (click)="nextStep()">Следующий</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <b>Храбрость</b>
+        </mat-panel-title>
+        <mat-icon>security</mat-icon>
+      </mat-expansion-panel-header>
+      <p>Петухи от природы обладают драчливым характером, но, считают китайцы, у них можно поучиться
+        храбрости, смелости и неустрашимости.</p>
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Предыдущий</button>
+        <button mat-button color="primary" (click)="nextStep()">Следующий</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <b>Мужественность</b>
+        </mat-panel-title>
+        <mat-icon>accessible_forward</mat-icon>
+      </mat-expansion-panel-header>
+      <p>Курица или петух тщательно оберегают цыплят. В случае нападения малого ястреба или другого врага курица сразу
+        же прячет цыплят под свои крылья и громко кудахчет. А скорпионам и сколопендрам не избежать злого рока - быть
+        съеденными курами и петухами.</p>
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Предыдущий</button>
+        <button mat-button color="primary" (click)="nextStep()">Следующий</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+    <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <b>Гуманность</b>
+        </mat-panel-title>
+        <mat-icon>favorite_border</mat-icon>
+      </mat-expansion-panel-header>
+      <p>Любовь и взаимопомощь в куриной семье являются образцовой для животного мира. Петух, найдя червя, зовет курицу,
+        чтобы та подошла и склевала добычу. Курица заботится о каждом своем цыпленке, часто приносит в клюве насекомых
+        или рисовые зерна цыплятам, наблюдает, как они едят.</p>
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Предыдущий</button>
+        <button mat-button color="primary" (click)="nextStep()">Следующий</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+    <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <b>Доверие</b>
+        </mat-panel-title>
+        <mat-icon>pregnant_woman</mat-icon>
+      </mat-expansion-panel-header>
+      <p>На протяжении нескольких тысячелетий петух сопутствовал традиционному обычаю китайского народа, согласно
+        которому "с восходом солнца люди выходили работать, а с закатом - отдыхали". Петух каждый день возвещает
+        рассвет, своевременно будит людей. Такая добродетель птицы, как пунктуальность, получила всеобщую похвалу и
+        признание.</p>
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Предыдущий</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

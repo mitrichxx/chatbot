@@ -1,0 +1,72 @@
+.full-width {
+  width: 100%;
+}
+
+.payment-form {
+  min-width: 120px;
+  margin: 20px auto;
+  width: 390px;
+  background-color: #E6E6E6;
+
+  &-footer {
+    color: #989898;
+    font-size: 11px;
+    line-height: 13px;
+    margin: 10px 0;
+  }
+}
+
+.payment-form-header-image {
+  background-image: url('/assets/icons/lock.svg');
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: center;
+  border: 2px solid #ffd740;
+}
+
+.card-type {
+  padding: 0 0 8px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &-label {
+    font-size: 14px;
+    color: #999999;
+  }
+
+  &-icons {
+    text-align: center;
+  }
+
+  &-icon {
+    vertical-align: middle;
+    padding: 0 5px;
+
+    &--disabled {
+      filter: grayscale(100%);
+      -ms-filter: grayscale(100%);
+      -webkit-filter: grayscale(100%);
+      opacity: 0.5;
+    }
+  }
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  & + & {
+    margin-top: 16px;
+  }
+}
+
+.col {
+  flex: 1;
+  margin-right: 8px;
+}
+
+.col:last-child {
+  margin-right: 0;
+}
