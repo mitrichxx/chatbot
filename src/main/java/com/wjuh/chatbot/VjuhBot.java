@@ -9,7 +9,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.*;
 
@@ -38,7 +37,6 @@ public class VjuhBot extends TelegramLongPollingBot {
                                 .setText("Unknown command");
                         execute(message);
                     } else {
-                        log.info("Bot command: " + botCommand.getDescription());
                         log.info("Try to execute command: " + " " + this.getBaseUrl() + " " + update.getMessage().getChat().getDescription());
                         botCommand.execute(this, update.getMessage().getFrom(), update.getMessage().getChat(), Arrays.stream(args).skip(1).toArray(String[]::new));
                     }
@@ -48,15 +46,11 @@ public class VjuhBot extends TelegramLongPollingBot {
                             .setChatId(update.getMessage().getChatId())
                             .setText(update.getMessage().getText())
                             .setReplyMarkup(getUnitsKeyboard());
-                    try {
-                        execute(message); // Call method to send the message
-                    } catch (TelegramApiException e) {
-                        e.printStackTrace();
-                    }
+                    execute(message);
                 }
             }
         } catch (Exception e) {
-
+            log.info("Failed process message", e);
         }
     }
 
@@ -64,7 +58,7 @@ public class VjuhBot extends TelegramLongPollingBot {
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
         replyKeyboardMarkup.setSelective(true);
         replyKeyboardMarkup.setResizeKeyboard(true);
-        replyKeyboardMarkup.setOneTimeKeyboard(false);
+        replyKeyboardMarkup.setOneTimeKeyboard(true);
 
         List<KeyboardRow> keyboard = new ArrayList<>();
         KeyboardRow row = new KeyboardRow();
