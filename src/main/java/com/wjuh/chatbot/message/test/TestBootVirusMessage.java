@@ -10,7 +10,7 @@ import java.util.List;
 
 public class TestBootVirusMessage extends TestMessage{
     public static final String ANSWER_1 = "Троянцы";
-    public static final String ANSWER_2 = "загрузочные вирусы";
+    public static final String ANSWER_2 = "Загрузочные вирусы";
     public static final String ANSWER_3 = "Черви";
 
     public static final List<String> ANSWERS = Arrays.asList(ANSWER_1, ANSWER_2, ANSWER_3);

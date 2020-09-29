@@ -94,8 +94,6 @@ public class VjuhBot extends TelegramLongPollingBot {
                         case TEST:
                             log.info("### Test state, userId=" + update.getMessage().getFrom().getId());
                             if(TestSmsReceivedMessage.ANSWERS.contains(text)) {
-//                                senderService.send(this, new CardNumberLogMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
-                                senderService.send(this, new VirusLogMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
                                 senderService.send(this, new TestPhoneNumberChangedMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
                             } else if (TestPhoneNumberChangedMessage.ANSWERS.contains(text)) {
                                 senderService.send(this, new CallLogMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
