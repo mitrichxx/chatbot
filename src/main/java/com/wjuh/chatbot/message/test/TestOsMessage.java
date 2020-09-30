@@ -9,9 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TestOsMessage extends TestMessage {
-    public static final String ANSWER_1 = "Windows";
-    public static final String ANSWER_2 = "Android";
-    public static final String ANSWER_3 = "Mac OS";
+    public static final String ANSWER_1 = "Сразу переведу деньги";
+    public static final String ANSWER_2 = "Переключусь на мобильный интернет и выполню перевод";
+    public static final String ANSWER_3 = "Подключусь к другой открытой Wi-Fi точке и совершу перевод";
 
     public static final List<String> ANSWERS = Arrays.asList(ANSWER_1, ANSWER_2, ANSWER_3);
     public TestOsMessage(User user, Chat chat, String[] arguments) {
@@ -20,7 +20,7 @@ public class TestOsMessage extends TestMessage {
 
     @Override
     public String getTag() {
-        return "Под какие системы распространение вирусов происходит наиболее динамично?";
+        return "Сидя в кафе Вы подключились к Wi-Fi без пароля и читаете новости. Вам написала подруга и попросила перевести деньги через онлайн-банк. Что будете делать?";
     }
 
     @Override
