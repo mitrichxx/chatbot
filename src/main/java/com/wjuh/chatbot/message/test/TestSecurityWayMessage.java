@@ -9,9 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TestSecurityWayMessage extends TestMessage{
-    public static final String ANSWER_1 = "Комплексный";
-    public static final String ANSWER_2 = "Теоретический";
-    public static final String ANSWER_3 = "Логический";
+    public static final String ANSWER_1 = "Да, конечно.";
+    public static final String ANSWER_2 = "Одинаковые, чтобы не забыть.";
+    public static final String ANSWER_3 = "Не одинаковые, но похожие.";
     public static final List<String> ANSWERS = Arrays.asList(ANSWER_1, ANSWER_2, ANSWER_3);
     public TestSecurityWayMessage(User user, Chat chat, String[] arguments) {
         super(user, chat, arguments);
@@ -19,7 +19,7 @@ public class TestSecurityWayMessage extends TestMessage{
 
     @Override
     public String getTag() {
-        return "Какого подход к обеспечению безопасности имеет место?";
+        return "У вас разные пароли от социальных сетей, онлайн-банка и почты?";
     }
 
     @Override
