@@ -114,10 +114,8 @@ public class VjuhBot extends TelegramLongPollingBot {
                             if(TestSmsReceivedMessage.ANSWERS.contains(text)) {
                                 senderService.send(this, new TestPhoneNumberChangedMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
                             } else if (TestPhoneNumberChangedMessage.ANSWERS.contains(text)) {
-                                senderService.send(this, new CallLogMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
                                 senderService.send(this, new TestWifiMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
                             } else if (TestWifiMessage.ANSWERS.contains(text)) {
-                                senderService.send(this, new WifiLogMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
                                 senderService.send(this, new TestAuthentificationMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
                             } else if (TestAuthentificationMessage.ANSWERS.contains(text)) {
                                 senderService.send(this, new TestOsMessage(update.getMessage().getFrom(), update.getMessage().getChat(), null));
