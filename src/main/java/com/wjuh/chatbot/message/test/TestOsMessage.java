@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TestOsMessage extends TestMessage {
-    public static final String ANSWER_1 = "Сразу переведу деньги";
+    public static final String ANSWER_1 = "Сразу переведу деньги.";
     public static final String ANSWER_2 = "Переключусь на мобильный интернет и выполню перевод";
     public static final String ANSWER_3 = "Подключусь к другой открытой Wi-Fi точке и совершу перевод";
 

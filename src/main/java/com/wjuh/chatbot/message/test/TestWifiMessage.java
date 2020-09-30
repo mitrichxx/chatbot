@@ -9,9 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TestWifiMessage extends TestMessage {
-    public static final String TRANSFER_MONEY = "Сразу переведу деньги";
-    public static final String MOBILE_NET = "Переключусь на мобильный интернет и выполню перевод";
-    public static final String ANOTHER_WIFI = "Подключусь к другой открытой Wi-Fi точке и совершу перевод";
+    public static final String TRANSFER_MONEY = "Сразу переведу деньги!";
+    public static final String MOBILE_NET = "Переключусь на мобильный интернет и выполню перевод!";
+    public static final String ANOTHER_WIFI = "Подключусь к другой открытой Wi-Fi точке и совершу перевод!";
 
     public static final List<String> ANSWERS = Arrays.asList(TRANSFER_MONEY, MOBILE_NET, ANOTHER_WIFI);
 

@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TestTargetMessage extends TestMessage{
-    public static final String ANSWER_1 = "Скачаю приложение,которое посоветовала подруга и переведу ей деньги ";
+    public static final String ANSWER_1 = "Скачаю приложение которое посоветовала подруга и переведу ей деньги.";
     public static final String ANSWER_2 = "Поищу в интернете другие приложения.через которые можно перевести деньги";
     public static final String ANSWER_3 = "Дождусь,когда заработает сайт Сбербанка или скачаю приложение с Play Маркет";
 

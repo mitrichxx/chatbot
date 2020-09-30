@@ -10,9 +10,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TestSmsReceivedMessage extends TestMessage{
-    public static final String GO_LINK = "Перейду по ссылке";
-    public static final String DELETE_SMS = "Удалю СМС";
-    public static final String CALL_NUMBER = "Позвоню по номеру, с которого пришло СМС";
+    public static final String GO_LINK = "Перейду по ссылке.";
+    public static final String DELETE_SMS = "Удалю СМСочку.";
+    public static final String CALL_NUMBER = "Позвоню по номеру, с которого пришло СМС.";
 
     public static final List<String> ANSWERS = Arrays.asList(GO_LINK, DELETE_SMS, CALL_NUMBER);
 
