@@ -9,9 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TestCryptoSystemMessage extends TestMessage{
-    public static final String ANSWER_1 = "Крипто Про";
-    public static final String ANSWER_2 = "BFox Pro";
-    public static final String ANSWER_3 = "CAudit Pro";
+    public static final String ANSWER_1 = "Удалю письмо. Это же фишинг!";
+    public static final String ANSWER_2 = "Скачаю файл и прочитаю. Это полезная информация.";
+    public static final String ANSWER_3 = "Отправлю друзьям, поделюсь скидками.";
     public static final List<String> ANSWERS = Arrays.asList(ANSWER_1, ANSWER_2, ANSWER_3);
     public TestCryptoSystemMessage(User user, Chat chat, String[] arguments) {
         super(user, chat, arguments);
@@ -19,7 +19,7 @@ public class TestCryptoSystemMessage extends TestMessage{
 
     @Override
     public String getTag() {
-        return "Системой криптографической защиты информации является:";
+        return "На вашу электронную почту пришло письмо от портала государственных услуг с адреса rosuslugi@gmail.com. Письмо содержит вложение формата ZIP «Перечень скидок на медицинские услуги рядом с вашим домом». В то же время в нём нет персонального обращения и контактов отправителя. Что сделаете?";
     }
 
     @Override
