@@ -9,9 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TestSecurityFraudMessage extends TestMessage{
-    public static final String ANSWER_1 = "Ошибки персонала";
-    public static final String ANSWER_2 = "Не авторизованный доступ";
-    public static final String ANSWER_3 = "Открытие электронного письма, содержащего вирус";
+    public static final String ANSWER_1 = "http://naprimer.ru";
+    public static final String ANSWER_2 = "https://naprimer.ru";
+    public static final String ANSWER_3 = "https://napremer.ru";
 
     public static final List<String> ANSWERS = Arrays.asList(ANSWER_1, ANSWER_2, ANSWER_3);
     public TestSecurityFraudMessage(User user, Chat chat, String[] arguments) {
@@ -20,7 +20,7 @@ public class TestSecurityFraudMessage extends TestMessage{
 
     @Override
     public String getTag() {
-        return "Какие угрозы безопасности информации являются преднамеренными?";
+        return "Вы хотите оплатить заказ в онлайн-магазине «Naprimer.ru». На какой странице вы уверенно введёте данные своей карты?";
     }
 
     @Override
