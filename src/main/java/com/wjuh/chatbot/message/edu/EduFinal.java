@@ -14,7 +14,8 @@ public class EduFinal extends Message {
     public SendMessage execute() {
         return new SendMessage()
                 .setChatId(getChat().getId())
-                .setText("Отлично, теперь вы знаете как противостоять угрозам!");
+                .setText("Отлично, теперь вы знаете как противостоять угрозам!" +
+                        "\nЧтобы проверить свои знания в более сложном тесте введите команду `/test`");
     }
 
     @Override
