@@ -9,9 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TestAuthentificationMessage extends TestMessage{
-    public static final String ANSWER_1 = "Одноразовые пароли";
-    public static final String ANSWER_2 = "Постоянные пароли";
-    public static final String ANSWER_3 = "Системы PKI";
+    public static final String ANSWER_1 = "Сказать «роботу-автоответчику» код из СМС и код безопасности";
+    public static final String ANSWER_2 = "Перевести деньги на «защищённый» счет банка";
+    public static final String ANSWER_3 = "Уточнить ФИО, дату выдачи паспорта, адрес регистрации, последние четыре цифры номера карты";
 
     public static final List<String> ANSWERS = Arrays.asList(ANSWER_1, ANSWER_2, ANSWER_3);
     public TestAuthentificationMessage(User user, Chat chat, String[] arguments) {
@@ -20,7 +20,7 @@ public class TestAuthentificationMessage extends TestMessage{
 
     @Override
     public String getTag() {
-        return "Какой вид идентификации и аутентификации получил наибольшее распространение?";
+        return "Вам позвонил сотрудник банка. О чём может он может вас попросить?";
     }
 
     @Override
