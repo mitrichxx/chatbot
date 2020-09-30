@@ -9,9 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TestBootVirusMessage extends TestMessage{
-    public static final String ANSWER_1 = "Троянцы";
-    public static final String ANSWER_2 = "Загрузочные вирусы";
-    public static final String ANSWER_3 = "Черви";
+    public static final String ANSWER_1 = "Нет, это СМС от мошенников. Я его удалю";
+    public static final String ANSWER_2 = "Конечно, можно. Наверное, телефон глючит.";
+    public static final String ANSWER_3 = "Да, просто Банк отправил смс с другого номера";
 
     public static final List<String> ANSWERS = Arrays.asList(ANSWER_1, ANSWER_2, ANSWER_3);
     public TestBootVirusMessage(User user, Chat chat, String[] arguments) {
@@ -20,7 +20,7 @@ public class TestBootVirusMessage extends TestMessage{
 
     @Override
     public String getTag() {
-        return "Какие вирусы активизируются в самом начале работы с операционной системой?";
+        return "Вам пришло СМС-сообщение от банка, но почему-то оно попало в отдельную переписку в телефоне. Можно ли доверять такому сообщению?";
     }
 
     @Override
