@@ -9,9 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TestLastProtectionMessage extends TestMessage{
-    public static final String ANSWER_1 = "Анализ уязвимых мест";
-    public static final String ANSWER_2 = "Планирование";
-    public static final String ANSWER_3 = "Сопровождение";
+    public static final String ANSWER_1 = "Предоставлю доступ, почему бы и нет? Вдруг пригодится.";
+    public static final String ANSWER_2 = "Я разрешу доступ в зависимости от приложения и его функций.";
+    public static final String ANSWER_3 = "Я не предоставлю доступ к этой информации.";
 
     public static final List<String> ANSWERS = Arrays.asList(ANSWER_1, ANSWER_2, ANSWER_3);
 
@@ -21,7 +21,7 @@ public class TestLastProtectionMessage extends TestMessage{
 
     @Override
     public String getTag() {
-        return "Заключительным этапом построения системы защиты является";
+        return "Вы начали устанавливать новое приложение для обработки фотографий, а оно просит доступ к геопозиции, микрофону и контактам. Что будете делать?";
     }
 
     @Override
