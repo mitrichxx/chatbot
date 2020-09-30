@@ -9,9 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TestTargetMessage extends TestMessage{
-    public static final String ANSWER_1 = "Атака на конкретный компьютер пользователя";
-    public static final String ANSWER_2 = "Атака на компьютерную систему крупного предприятия";
-    public static final String ANSWER_3 = "Атака на сетевое оборудование";
+    public static final String ANSWER_1 = "Скачаю приложение,которое посоветовала подруга и переведу ей деньги ";
+    public static final String ANSWER_2 = "Поищу в интернете другие приложения.через которые можно перевести деньги";
+    public static final String ANSWER_3 = "Дождусь,когда заработает сайт Сбербанка или скачаю приложение с Play Маркет";
 
     public static final List<String> ANSWERS = Arrays.asList(ANSWER_1, ANSWER_2, ANSWER_3);
     public TestTargetMessage(User user, Chat chat, String[] arguments) {
@@ -20,7 +20,7 @@ public class TestTargetMessage extends TestMessage{
 
     @Override
     public String getTag() {
-        return "Таргетированная атака - ...";
+        return "Вам звонит подруга и просит срочно перевести ей деньги на телефон, но у вас не установлено приложение Сбербанк,сайт временно не доступен. Она предлагает скачать аналог приложения для пополнения счета с MnogoProgramm.com.";
     }
 
     @Override
